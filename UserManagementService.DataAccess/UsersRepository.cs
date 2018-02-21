@@ -8,14 +8,6 @@ namespace UserManagementService.DataAccess
 {
     public class UsersRepository : Repository<User>, IUsersRepository
     {
-        //public UserManagementDbContext UserManagementDbContext
-        //{
-        //    get
-        //    {
-        //        return context as UserManagementDbContext;
-        //    }
-        //}
-
         public UsersRepository(UserManagementDbContext context) 
             : base(context)
         {
@@ -23,12 +15,6 @@ namespace UserManagementService.DataAccess
 
         public IEnumerable<User> GetAllUsersFullInfo()
         {
-            var result = from entity in context.Set<User>()
-                         select new
-                         {
-                             Name = entity.Name,
-                             Company = entity.Company.Name
-                         };
             return context.Set<User>().Include("Company").ToList();
         }
     }
